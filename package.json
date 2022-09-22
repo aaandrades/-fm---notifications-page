@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend mentor challenge",
   "main": "index.js",
+  "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --config webpack.config.js",
@@ -10,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aaandrades/-fm---notifications-page.git"
+    "url": "git+https://github.com/aaandrades/fm-notifications-page.git"
   },
   "author": "aaandrades",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aaandrades/-fm---notifications-page/issues"
+    "url": "https://github.com/aaandrades/fm-notifications-page/issues"
   },
-  "homepage": "https://github.com/aaandrades/-fm---notifications-page#readme",
+  "homepage": "https://github.com/aaandrades/fm-notifications-page#readme",
   "devDependencies": {
     "@babel/core": "^7.19.1",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
