@@ -6,15 +6,21 @@ import RizkyHassanuddinPhoto from "../assets/avatar-rizky-hasanuddin.webp";
 import KimberlySmithPhoto from "../assets/avatar-kimberly-smith.webp";
 import NathanPetersonPhoto from "../assets/avatar-nathan-peterson.webp";
 import AnnaKimPhoto from "../assets/avatar-anna-kim.webp";
+import ChessClubPhoto from "../assets/image-chess.webp";
 
-const NotificationContainer = () => {
+const NotificationContainer = ({ unreads = [1, 2, 3], handleUnread }) => {
   const notifications = [
     {
+      id: 1,
       name: "Mark Webber",
       content: (
-        <span>
-          <strong>Mark Webber </strong>reacted to your recent post
-          <strong> My first tournament today!</strong>
+        <span className="simple-text">
+          <span className="name-text">Mark Webber </span>reacted to your recent
+          post
+          <span className="special-bold"> My first tournament today!</span>
+          {unreads.includes(1) && (
+            <div className="notification-body__unread-badge"></div>
+          )}
         </span>
       ),
       time: "1m ago",
@@ -22,10 +28,15 @@ const NotificationContainer = () => {
       readed: false,
     },
     {
+      id: 2,
+
       name: "Angela gray",
       content: (
-        <span>
-          <strong>Angela gray</strong> followed you
+        <span className="simple-text">
+          <span className="name-text">Angela gray</span> followed you
+          {unreads.includes(2) && (
+            <div className="notification-body__unread-badge"></div>
+          )}
         </span>
       ),
       time: "5m ago",
@@ -33,12 +44,16 @@ const NotificationContainer = () => {
       readed: false,
     },
     {
+      id: 3,
       name: "Jacob Thompson",
       content: (
-        <span>
-          <strong>Jacob Thompson </strong>
+        <span className="simple-text">
+          <span className="name-text">Jacob Thompson </span>
           has joined your group
-          <strong> Chess Club</strong>
+          <span className="highlighted-text"> Chess Club</span>
+          {unreads.includes(3) && (
+            <div className="notification-body__unread-badge"></div>
+          )}
         </span>
       ),
       time: "1 day ago",
@@ -46,10 +61,20 @@ const NotificationContainer = () => {
       readed: false,
     },
     {
+      id: 4,
+
       name: "Rizky Hasanuddin",
+      specialContent: (
+        <div className="special-content">
+          Hello, thanks for setting up the Chess Club. I've been a memeber for a
+          few weeks now and i'm already having lots of fun and improving my
+          game.
+        </div>
+      ),
       content: (
-        <span>
-          <strong>Rizky Hasanuddin </strong>sent you a private message
+        <span className="simple-text">
+          <span className="name-text">Rizky Hasanuddin </span>sent you a private
+          message
         </span>
       ),
       time: "5 days ago",
@@ -57,23 +82,40 @@ const NotificationContainer = () => {
       readed: true,
     },
     {
+      id: 5,
       name: "Kimberly Smith",
       content: (
-        <span>
-          <strong>Kimberly Smith </strong>commented on your picture
-        </span>
+        <div className="img-container">
+          <span className="simple-text">
+            <div className="img-container__text">
+              <span className="name-text">Kimberly Smith </span> commented on
+              your picture
+            </div>
+          </span>
+          <img
+            src={ChessClubPhoto}
+            alt="chess"
+            height={"40px"}
+            width={"40px"}
+            className="absolute-img"
+          />
+        </div>
       ),
       time: "1 week ago",
       img: KimberlySmithPhoto,
       readed: true,
     },
     {
+      id: 6,
       name: "Nathan Peterson",
       content: (
-        <span>
-          <strong>Nathan Peterson </strong>
+        <span className="simple-text">
+          <span className="name-text">Nathan Peterson </span>
           reacted to your recent post
-          <span> 5 end-game strategies to increase your win rate</span>
+          <span className="special-bold">
+            {" "}
+            5 end-game strategies to increase your win rate
+          </span>
         </span>
       ),
       time: "2 weeks ago",
@@ -81,12 +123,13 @@ const NotificationContainer = () => {
       readed: true,
     },
     {
+      id: 7,
       name: "Anna Kim",
       content: (
-        <span>
-          <strong>Anna Kim </strong>
+        <span className="simple-text">
+          <span className="name-text">Anna Kim </span>
           left the group
-          <strong> Chess Club</strong>
+          <span className="highlighted-text"> Chess Club</span>
         </span>
       ),
       time: "1m ago",
@@ -97,27 +140,32 @@ const NotificationContainer = () => {
 
   return (
     <article>
-      {notifications.map((notification) => {
-        return (
-          <div
-            key={notification.name}
-            className={`notification-body ${
-              notification.readed ? "notification-read" : "notification-unread"
-            }`}
-          >
-            <img src={notification.img} alt="content" height={"40rem"} />
-            <div className="notification-body__text">
-              <div className="notification-body__paragraph">
-                {notification.content}
-                {!notification.readed && (
-                  <div className="notification-body__unread-badge"></div>
-                )}
-              </div>
-              <p className="notification-body__time">{notification.time}</p>
+      {notifications.map((notification) => (
+        <div
+          key={notification.id}
+          role="button"
+          onClick={() => handleUnread(notification.id)}
+          className={`notification-body ${
+            unreads.includes(notification.id)
+              ? "notification-unread"
+              : "notification-read"
+          }`}
+        >
+          <img
+            src={notification.img}
+            alt="content"
+            height={"40rem"}
+            className="notification-body__img"
+          />
+          <div className="notification-body__text">
+            <div className="notification-body__paragraph">
+              {notification.content}
             </div>
+            <p className="notification-body__time">{notification.time}</p>
+            {notification.specialContent}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </article>
   );
 };

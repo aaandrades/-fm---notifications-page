@@ -5,7 +5,12 @@ import "./styles.css";
 import NotificationContainer from "./NotificationContainer";
 
 const App = () => {
-  const [counter, setCounter] = React.useState(3);
+  const [unreads, setUnread] = React.useState([1, 2, 3]);
+
+  const handleUnread = (id) => {
+    const newUnreads = [...unreads].filter((value) => value !== id);
+    setUnread(newUnreads);
+  };
 
   return (
     <main className="notifications-container">
@@ -14,14 +19,18 @@ const App = () => {
           <h2 className="notifications-container__header--title">
             Notifications{" "}
             <span className="notifications-container__header--counter">
-              {counter}
+              {unreads.length}
             </span>
           </h2>
-          <span className="notifications-container__header--help">
+          <span
+            role="button"
+            onClick={() => setUnread([])}
+            className="notifications-container__header--help"
+          >
             Mark all as read
           </span>
         </div>
-        <NotificationContainer />
+        <NotificationContainer unreads={unreads} handleUnread={handleUnread} />
       </section>
       <footer className="attribution">
         Challenge by{" "}
